@@ -1,6 +1,6 @@
 "use client";
 
-import { signOut } from "@/app/(login)/actions";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -36,6 +36,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Suspense } from "react";
 import useSWR, { mutate } from "swr";
+import { signOut } from "../(login)/actions";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 

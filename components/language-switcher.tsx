@@ -10,6 +10,7 @@ import {
 import { Globe } from "lucide-react";
 import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
+import { useTransition } from "react";
 
 const languages = [
   { code: "en", name: "English", flag: "🇬🇧" },
@@ -20,18 +21,27 @@ export function LanguageSwitcher() {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+  const [isPending, startTransition] = useTransition();
 
   const handleLanguageChange = (newLocale: string) => {
-    // Remove the current locale prefix from pathname if it exists
-    const pathWithoutLocale = pathname.replace(/^\/(en|es)/, "") || "/";
+    startTransition(async () => {
+      // Save locale preference to cookie
+      document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=${
+        60 * 60 * 24 * 365
+      }`;
 
-    // Construct new path with new locale
-    const newPath =
-      newLocale === "en"
-        ? pathWithoutLocale
-        : `/${newLocale}${pathWithoutLocale}`;
+      // Remove the current locale prefix from pathname if it exists
+      const pathWithoutLocale = pathname.replace(/^\/(en|es)/, "") || "/";
 
-    router.push(newPath);
+      // Construct new path with new locale
+      const newPath =
+        newLocale === "en"
+          ? pathWithoutLocale
+          : `/${newLocale}${pathWithoutLocale}`;
+
+      router.push(newPath);
+      router.refresh();
+    });
   };
 
   const currentLanguage = languages.find((lang) => lang.code === locale);
@@ -39,7 +49,12 @@ export function LanguageSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="gap-2">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="gap-2"
+          disabled={isPending}
+        >
           <Globe className="h-4 w-4" />
           <span className="hidden sm:inline text-sm">
             {currentLanguage?.name}
@@ -53,6 +68,7 @@ export function LanguageSwitcher() {
             key={lang.code}
             onClick={() => handleLanguageChange(lang.code)}
             className={locale === lang.code ? "bg-accent" : ""}
+            disabled={isPending}
           >
             <span className="mr-2">{lang.flag}</span>
             <span>{lang.name}</span>

@@ -1,17 +1,38 @@
+import { defaultLocale, locales } from "@/i18n";
 import { signToken, verifyToken } from "@/lib/auth/session";
 import createMiddleware from "next-intl/middleware";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { locales } from "./i18n";
 
 const protectedRoutes = "/dashboard";
 
-// Create i18n middleware
+// Create i18n middleware with locale detection
 const intlMiddleware = createMiddleware({
   locales,
-  defaultLocale: "en",
+  defaultLocale,
   localePrefix: "as-needed",
+  localeDetection: true,
 });
+
+function getPreferredLocale(request: NextRequest): string {
+  // 1. Check for user locale preference in cookies (set by language switcher)
+  const localeCookie = request.cookies.get("NEXT_LOCALE")?.value;
+  if (localeCookie && locales.includes(localeCookie as any)) {
+    return localeCookie;
+  }
+
+  // 2. Check Accept-Language header from browser
+  const acceptLanguage = request.headers.get("accept-language");
+  if (acceptLanguage) {
+    const preferred = acceptLanguage.split(",")[0].split("-")[0].toLowerCase();
+    if (locales.includes(preferred as any)) {
+      return preferred;
+    }
+  }
+
+  // 3. Fall back to default locale (English)
+  return defaultLocale;
+}
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;

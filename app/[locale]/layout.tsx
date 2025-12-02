@@ -1,10 +1,9 @@
-import { locales } from "@/i18n";
+import { defaultLocale, locales } from "@/i18n";
 import { getTeamForUser, getUser } from "@/lib/db/queries";
 import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getLocale, getMessages } from "next-intl/server";
 import { Manrope } from "next/font/google";
-import { notFound } from "next/navigation";
 import { SWRConfig } from "swr";
 import "./globals.css";
 
@@ -33,20 +32,15 @@ export async function generateStaticParams() {
 export default async function RootLayout({ children, params }: Props) {
   const { locale } = await params;
 
-  // Validate that the incoming `locale` parameter is valid
-  if (!locales.includes(locale as any)) {
-    notFound();
-  }
-
   const messages = await getMessages();
 
   return (
     <html
-      lang={locale}
+      lang={locale || defaultLocale}
       className={`bg-white dark:bg-gray-950 text-black dark:text-white ${manrope.className}`}
     >
       <body className="min-h-[100dvh] bg-gray-50">
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider messages={messages} locale={locale}>
           <SWRConfig
             value={{
               fallback: {
