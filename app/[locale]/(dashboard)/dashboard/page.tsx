@@ -1,6 +1,5 @@
 "use client";
 
-import { inviteTeamMember, removeTeamMember } from "@/app/(login)/actions";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +17,7 @@ import { customerPortalAction } from "@/lib/payments/actions";
 import { Loader2, PlusCircle } from "lucide-react";
 import { Suspense, useActionState } from "react";
 import useSWR from "swr";
+import { inviteTeamMember, removeTeamMember } from "../../(login)/actions";
 
 type ActionState = {
   error?: string;

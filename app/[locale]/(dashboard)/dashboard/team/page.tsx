@@ -1,6 +1,6 @@
 "use client";
 
-import { inviteTeamMember, removeTeamMember } from "@/app/(login)/actions";
+import { inviteTeamMember, removeTeamMember } from "@/app/[locale]/(login)/actions";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
