@@ -1,0 +1,97 @@
+{
+  "header": {
+    "pricing": "Pricing",
+    "signUp": "Sign Up",
+    "dashboard": "Dashboard",
+    "signOut": "Sign out",
+    "language": "Language"
+  },
+  "dashboard": {
+    "home": "Home",
+    "chats": "Chats",
+    "kanban": "Kanban",
+    "team": "Team",
+    "general": "General",
+    "activity": "Activity",
+    "security": "Security",
+    "navigation": "Navigation"
+  },
+  "chats": {
+    "title": "Chats",
+    "description": "Manage your conversations and leads",
+    "listView": "List View",
+    "kanbanView": "Kanban View",
+    "automateReplies": "Automate Replies",
+    "automationOn": "Automation On",
+    "searchChats": "Search chats...",
+    "selectChat": "Select a chat to view details",
+    "addNote": "Add Note",
+    "typeMessage": "Type a message...",
+    "send": "Send",
+    "automationBanner": "Automatic replies are enabled. Messages matching automation rules will be responded to automatically."
+  },
+  "kanban": {
+    "title": "Kanban Board",
+    "description": "Drag cards between columns to update lead status",
+    "features": "Kanban Board Features",
+    "dragCards": "Drag and drop cards between columns to update lead status",
+    "highlight": "Columns highlight when dragging over them for easy drop targeting",
+    "emotionBadges": "Emotion analysis badges show sentiment from LLM",
+    "colorCoded": "Color-coded emotions: Green (positive), Blue (engaged), Gray (neutral)",
+    "trackPipeline": "Track your sales pipeline at a glance",
+    "item": "item",
+    "items": "items",
+    "noItems": "No items yet"
+  },
+  "team": {
+    "title": "Team Settings",
+    "subscription": "Team Subscription",
+    "members": "Team Members",
+    "invite": "Invite Team Member",
+    "current": "Current Plan",
+    "billedMonthly": "Billed monthly",
+    "trial": "Trial period",
+    "noSubscription": "No active subscription",
+    "manageSubscription": "Manage Subscription",
+    "noMembers": "No team members yet",
+    "owner": "You must be a team owner to invite new members",
+    "email": "Email",
+    "role": "Role",
+    "member": "Member",
+    "enterEmail": "Enter email",
+    "remove": "Remove",
+    "removing": "Removing...",
+    "inviteMember": "Invite Member",
+    "inviting": "Inviting..."
+  },
+  "general": {
+    "title": "General Settings",
+    "accountInfo": "Account Information",
+    "name": "Name",
+    "email": "Email",
+    "enterName": "Enter your name",
+    "enterEmail": "Enter your email",
+    "saveChanges": "Save Changes",
+    "saving": "Saving..."
+  },
+  "activity": {
+    "title": "Activity Log",
+    "recentActivity": "Recent Activity",
+    "noActivity": "No activity yet",
+    "noActivityDesc": "When you perform actions like signing in or updating your account, they'll appear here."
+  },
+  "security": {
+    "title": "Security Settings",
+    "password": "Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm New Password",
+    "updatePassword": "Update Password",
+    "updating": "Updating...",
+    "deleteAccount": "Delete Account",
+    "deleteDesc": "Account deletion is non-reversable. Please proceed with caution.",
+    "confirmDelete": "Confirm Password",
+    "delete": "Delete Account",
+    "deleting": "Deleting..."
+  }
+}

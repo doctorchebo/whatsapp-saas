@@ -1,0 +1,103 @@
+{
+  "project_name": "WhatsApp Automation & CRM",
+  "base_path": "/",
+  "layouts": {
+    "marketing_layout": {
+      "header": ["Header", "PricingLink", "DarkModeToggle", "LanguageSelector"],
+      "footer": ["Footer"],
+      "type": "public"
+    },
+    "dashboard_layout": {
+      "header": ["DashboardHeader", "DarkModeToggle", "LanguageSelector", "ChannelSelector"],
+      "sidebar": ["Sidebar", "SidebarToggleButton"],
+      "type": "private",
+      "protected": true
+    },
+    "auth_layout": {
+      "header": ["Header"],
+      "footer": ["Footer"],
+      "type": "auth"
+    }
+  },
+  "pages": [
+    {
+      "name": "LandingPage",
+      "path": "/",
+      "layout": "marketing_layout",
+      "components": [
+        {"type": "section", "name": "HeroSection", "description": "Main call-to-action and product explanation."},
+        {"type": "section", "name": "FeaturesSection", "description": "Highlighting LLM emotion analysis and automation."},
+        {"type": "section", "name": "TestimonialsSection", "description": "Social proof from users."},
+        {"type": "section", "name": "ContactSection", "description": "Form for inquiries or demo request."}
+      ]
+    },
+    {
+      "name": "PricingPage",
+      "path": "/pricing",
+      "layout": "marketing_layout",
+      "components": [
+        {"type": "section", "name": "PricingPlans", "description": "Displays different subscription tiers and features."},
+        {"type": "button", "name": "StripeCheckoutButton", "description": "Initiates Stripe payment process for a selected plan."}
+      ]
+    },
+    {
+      "name": "LoginPage",
+      "path": "/login",
+      "layout": "auth_layout",
+      "components": [
+        {"type": "form", "name": "LoginForm"},
+        {"type": "button", "name": "GoogleAuthButton", "description": "Login with Google option."}
+      ]
+    },
+    {
+      "name": "DashboardHome",
+      "path": "/dashboard",
+      "layout": "dashboard_layout",
+      "components": [
+        {"type": "component", "name": "DashboardOverview", "description": "Summary of key metrics (total leads, response rate, etc.)."}
+      ]
+    },
+    {
+      "name": "ChatsListView",
+      "path": "/dashboard/chats",
+      "layout": "dashboard_layout",
+      "components": [
+        {"type": "component", "name": "ViewSwitcherDropdown", "options": ["List", "Kanban"], "default": "List", "description": "Dropdown to switch between List and Kanban views."},
+        {"type": "button", "name": "AutomationToggle", "label": "Automate", "description": "Toggles automatic response system."},
+        {"type": "component", "name": "ChatListPanel", "description": "Left column: List of leads/chats."},
+        {"type": "component", "name": "ChatDetailPanel", "description": "Right column: Individual chat view."},
+        {"type": "component", "name": "MessageItem", "children": [
+          {"type": "button", "name": "AddNoteButton"},
+          {"type": "component", "name": "LLMEmotionTag", "description": "Displays emotion analysis result."}
+        ]},
+        {"type": "form", "name": "ChatCommentForm", "description": "Allows other users to comment on the chat thread."}
+      ]
+    },
+    {
+      "name": "KanbanView",
+      "path": "/dashboard/kanban",
+      "layout": "dashboard_layout",
+      "components": [
+        {"type": "component", "name": "KanbanBoard", "description": "Container for sales stages."},
+        {"type": "component", "name": "KanbanColumn", "description": "Represents a sales stage (e.g., Lead, Qualified, Demo)."},
+        {"type": "component", "name": "KanbanCard", "description": "Represents a single chat/lead, draggable."}
+      ]
+    },
+    {
+      "name": "SettingsPage",
+      "path": "/dashboard/settings",
+      "layout": "dashboard_layout",
+      "components": [
+        {"type": "component", "name": "ProfileSettings"},
+        {"type": "component", "name": "IntegrationSettings", "description": "Twilio/WhatsApp setup."},
+        {"type": "component", "name": "AutomationRulesEditor", "description": "Interface for defining auto-response rules."}
+      ]
+    }
+  ],
+  "global_components": [
+    {"name": "PricingLink", "description": "Navigation link to the /pricing page."},
+    {"name": "DarkModeToggle", "description": "Toggles light/dark mode (using shadcn-ui's theme provider)."},
+    {"name": "LanguageSelector", "description": "Toggles between English and Spanish."},
+    {"name": "SidebarToggleButton", "description": "Hamburger icon to expand/contract the sidebar."}
+  ]
+}

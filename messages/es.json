@@ -1,0 +1,97 @@
+{
+  "header": {
+    "pricing": "Precios",
+    "signUp": "Registrarse",
+    "dashboard": "Panel",
+    "signOut": "Cerrar sesión",
+    "language": "Idioma"
+  },
+  "dashboard": {
+    "home": "Inicio",
+    "chats": "Chats",
+    "kanban": "Kanban",
+    "team": "Equipo",
+    "general": "General",
+    "activity": "Actividad",
+    "security": "Seguridad",
+    "navigation": "Navegación"
+  },
+  "chats": {
+    "title": "Chats",
+    "description": "Gestiona tus conversaciones y clientes potenciales",
+    "listView": "Vista de Lista",
+    "kanbanView": "Vista Kanban",
+    "automateReplies": "Automatizar Respuestas",
+    "automationOn": "Automatización Activada",
+    "searchChats": "Buscar chats...",
+    "selectChat": "Selecciona un chat para ver detalles",
+    "addNote": "Agregar Nota",
+    "typeMessage": "Escribe un mensaje...",
+    "send": "Enviar",
+    "automationBanner": "Las respuestas automáticas están habilitadas. Los mensajes que coincidan con las reglas de automatización se responderán automáticamente."
+  },
+  "kanban": {
+    "title": "Tablero Kanban",
+    "description": "Arrastra tarjetas entre columnas para actualizar el estado del cliente potencial",
+    "features": "Características del Tablero Kanban",
+    "dragCards": "Arrastra y suelta tarjetas entre columnas para actualizar el estado del cliente potencial",
+    "highlight": "Las columnas se resaltan al arrastrar sobre ellas para dirigirse fácilmente a la zona de colocación",
+    "emotionBadges": "Las insignias de análisis de emoción muestran el sentimiento del LLM",
+    "colorCoded": "Emociones codificadas por color: Verde (positivo), Azul (comprometido), Gris (neutral)",
+    "trackPipeline": "Controla tu canal de ventas de un vistazo",
+    "item": "elemento",
+    "items": "elementos",
+    "noItems": "Sin elementos aún"
+  },
+  "team": {
+    "title": "Configuración del Equipo",
+    "subscription": "Suscripción del Equipo",
+    "members": "Miembros del Equipo",
+    "invite": "Invitar Miembro del Equipo",
+    "current": "Plan Actual",
+    "billedMonthly": "Facturado mensualmente",
+    "trial": "Período de prueba",
+    "noSubscription": "Sin suscripción activa",
+    "manageSubscription": "Gestionar Suscripción",
+    "noMembers": "Sin miembros del equipo aún",
+    "owner": "Debes ser propietario del equipo para invitar nuevos miembros",
+    "email": "Correo Electrónico",
+    "role": "Rol",
+    "member": "Miembro",
+    "enterEmail": "Ingresa correo electrónico",
+    "remove": "Eliminar",
+    "removing": "Eliminando...",
+    "inviteMember": "Invitar Miembro",
+    "inviting": "Invitando..."
+  },
+  "general": {
+    "title": "Configuración General",
+    "accountInfo": "Información de Cuenta",
+    "name": "Nombre",
+    "email": "Correo Electrónico",
+    "enterName": "Ingresa tu nombre",
+    "enterEmail": "Ingresa tu correo electrónico",
+    "saveChanges": "Guardar Cambios",
+    "saving": "Guardando..."
+  },
+  "activity": {
+    "title": "Registro de Actividad",
+    "recentActivity": "Actividad Reciente",
+    "noActivity": "Sin actividad aún",
+    "noActivityDesc": "Cuando realices acciones como iniciar sesión o actualizar tu cuenta, aparecerán aquí."
+  },
+  "security": {
+    "title": "Configuración de Seguridad",
+    "password": "Contraseña",
+    "currentPassword": "Contraseña Actual",
+    "newPassword": "Nueva Contraseña",
+    "confirmPassword": "Confirmar Nueva Contraseña",
+    "updatePassword": "Actualizar Contraseña",
+    "updating": "Actualizando...",
+    "deleteAccount": "Eliminar Cuenta",
+    "deleteDesc": "La eliminación de la cuenta es irreversible. Procede con precaución.",
+    "confirmDelete": "Confirmar Contraseña",
+    "delete": "Eliminar Cuenta",
+    "deleting": "Eliminando..."
+  }
+}
