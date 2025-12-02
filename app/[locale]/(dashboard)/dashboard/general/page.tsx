@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { User } from "@/lib/db/schema";
 import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Suspense, useActionState } from "react";
 import useSWR from "swr";
 
@@ -22,36 +23,38 @@ type AccountFormProps = {
   state: ActionState;
   nameValue?: string;
   emailValue?: string;
+  t: ReturnType<typeof useTranslations>;
 };
 
 function AccountForm({
   state,
   nameValue = "",
   emailValue = "",
+  t,
 }: AccountFormProps) {
   return (
     <>
       <div>
         <Label htmlFor="name" className="mb-2">
-          Name
+          {t("name")}
         </Label>
         <Input
           id="name"
           name="name"
-          placeholder="Enter your name"
+          placeholder={t("enterName")}
           defaultValue={state.name || nameValue}
           required
         />
       </div>
       <div>
         <Label htmlFor="email" className="mb-2">
-          Email
+          {t("email")}
         </Label>
         <Input
           id="email"
           name="email"
           type="email"
-          placeholder="Enter your email"
+          placeholder={t("enterEmail")}
           defaultValue={emailValue}
           required
         />
@@ -60,18 +63,26 @@ function AccountForm({
   );
 }
 
-function AccountFormWithData({ state }: { state: ActionState }) {
+function AccountFormWithData({
+  state,
+  t,
+}: {
+  state: ActionState;
+  t: ReturnType<typeof useTranslations>;
+}) {
   const { data: user } = useSWR<User>("/api/user", fetcher);
   return (
     <AccountForm
       state={state}
       nameValue={user?.name ?? ""}
       emailValue={user?.email ?? ""}
+      t={t}
     />
   );
 }
 
 export default function GeneralPage() {
+  const t = useTranslations("general");
   const [state, formAction, isPending] = useActionState<ActionState, FormData>(
     updateAccount,
     {}
@@ -79,16 +90,16 @@ export default function GeneralPage() {
 
   return (
     <section className="flex-1 p-4 lg:p-8">
-      <h1 className="text-lg lg:text-2xl font-medium mb-6">General Settings</h1>
+      <h1 className="text-lg lg:text-2xl font-medium mb-6">{t("title")}</h1>
 
       <Card>
         <CardHeader>
-          <CardTitle>Account Information</CardTitle>
+          <CardTitle>{t("accountInfo")}</CardTitle>
         </CardHeader>
         <CardContent>
           <form className="space-y-4" action={formAction}>
-            <Suspense fallback={<AccountForm state={state} />}>
-              <AccountFormWithData state={state} />
+            <Suspense fallback={<AccountForm state={state} t={t} />}>
+              <AccountFormWithData state={state} t={t} />
             </Suspense>
             {state.error && (
               <p className="text-red-500 text-sm">{state.error}</p>
@@ -100,10 +111,10 @@ export default function GeneralPage() {
               {isPending ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Saving...
+                  {t("saving")}
                 </>
               ) : (
-                "Save Changes"
+                t("saveChanges")
               )}
             </Button>
           </form>

@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { ChevronDown, MessageSquare, Plus } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 type ViewType = "List" | "Kanban";
@@ -69,6 +70,7 @@ const mockChatDetail = {
 };
 
 export default function ChatsPage() {
+  const t = useTranslations("chats");
   const [view, setView] = useState<ViewType>("List");
   const [automationEnabled, setAutomationEnabled] = useState(false);
   const [selectedChatId, setSelectedChatId] = useState<number | null>(1);
@@ -79,25 +81,23 @@ export default function ChatsPage() {
       {/* Header with Controls */}
       <div className="border-b px-6 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-semibold">Chats</h1>
-          <p className="text-sm text-muted-foreground">
-            Manage your conversations and leads
-          </p>
+          <h1 className="text-2xl font-semibold">{t("title")}</h1>
+          <p className="text-sm text-muted-foreground">{t("description")}</p>
         </div>
         <div className="flex items-center gap-3">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="gap-2">
-                {view === "List" ? "List View" : "Kanban View"}
+                {view === "List" ? t("listView") : t("kanbanView")}
                 <ChevronDown className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem onClick={() => setView("List")}>
-                List View
+                {t("listView")}
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => setView("Kanban")}>
-                Kanban View
+                {t("kanbanView")}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -106,7 +106,7 @@ export default function ChatsPage() {
             onClick={() => setAutomationEnabled(!automationEnabled)}
             className="gap-2"
           >
-            {automationEnabled ? "Automation On" : "Automate Replies"}
+            {automationEnabled ? t("automationOn") : t("automateReplies")}
           </Button>
         </div>
       </div>
@@ -116,7 +116,7 @@ export default function ChatsPage() {
         {/* Left Panel: Chat List */}
         <div className="w-full lg:w-80 border-r flex flex-col bg-muted/30">
           <div className="p-4 border-b">
-            <Input placeholder="Search chats..." className="w-full" />
+            <Input placeholder={t("searchChats")} className="w-full" />
           </div>
           <div className="flex-1 overflow-y-auto">
             {mockChats.map((chat) => (
@@ -206,7 +206,7 @@ export default function ChatsPage() {
               <div className="text-center">
                 <MessageSquare className="h-16 w-16 text-muted-foreground mx-auto mb-4 opacity-30" />
                 <p className="text-muted-foreground text-lg">
-                  Select a chat to view details
+                  {t("selectChat")}
                 </p>
               </div>
             </div>

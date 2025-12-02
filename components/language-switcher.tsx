@@ -30,7 +30,7 @@ export function LanguageSwitcher() {
         60 * 60 * 24 * 365
       }`;
 
-      // Remove the current locale prefix from pathname if it exists
+      // Remove the current locale prefix from pathname
       const pathWithoutLocale = pathname.replace(/^\/(en|es)/, "") || "/";
 
       // Construct new path with new locale
@@ -39,8 +39,8 @@ export function LanguageSwitcher() {
           ? pathWithoutLocale
           : `/${newLocale}${pathWithoutLocale}`;
 
-      router.push(newPath);
-      router.refresh();
+      // Use replace to push the new locale path and trigger a full re-render
+      router.replace(newPath);
     });
   };
 

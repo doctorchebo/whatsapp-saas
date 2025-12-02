@@ -1,6 +1,9 @@
 "use client";
 
-import { inviteTeamMember, removeTeamMember } from "@/app/[locale]/(login)/actions";
+import {
+  inviteTeamMember,
+  removeTeamMember,
+} from "@/app/[locale]/(login)/actions";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,6 +19,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { TeamDataWithMembers, User } from "@/lib/db/schema";
 import { customerPortalAction } from "@/lib/payments/actions";
 import { Loader2, PlusCircle } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Suspense, useActionState } from "react";
 import useSWR from "swr";
 
@@ -27,41 +31,43 @@ type ActionState = {
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 function SubscriptionSkeleton() {
+  const t = useTranslations("team");
   return (
     <Card className="mb-8 h-[140px]">
       <CardHeader>
-        <CardTitle>Team Subscription</CardTitle>
+        <CardTitle>{t("subscription")}</CardTitle>
       </CardHeader>
     </Card>
   );
 }
 
 function ManageSubscription() {
+  const t = useTranslations("team");
   const { data: teamData } = useSWR<TeamDataWithMembers>("/api/team", fetcher);
 
   return (
     <Card className="mb-8">
       <CardHeader>
-        <CardTitle>Team Subscription</CardTitle>
+        <CardTitle>{t("subscription")}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
             <div className="mb-4 sm:mb-0">
               <p className="font-medium">
-                Current Plan: {teamData?.planName || "Free"}
+                {t("current")}: {teamData?.planName || "Free"}
               </p>
               <p className="text-sm text-muted-foreground">
                 {teamData?.subscriptionStatus === "active"
-                  ? "Billed monthly"
+                  ? t("billedMonthly")
                   : teamData?.subscriptionStatus === "trialing"
-                  ? "Trial period"
-                  : "No active subscription"}
+                  ? t("trial")
+                  : t("noSubscription")}
               </p>
             </div>
             <form action={customerPortalAction}>
               <Button type="submit" variant="outline">
-                Manage Subscription
+                {t("manageSubscription")}
               </Button>
             </form>
           </div>
@@ -72,10 +78,11 @@ function ManageSubscription() {
 }
 
 function TeamMembersSkeleton() {
+  const t = useTranslations("team");
   return (
     <Card className="mb-8 h-[140px]">
       <CardHeader>
-        <CardTitle>Team Members</CardTitle>
+        <CardTitle>{t("members")}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="animate-pulse space-y-4 mt-1">
@@ -93,6 +100,7 @@ function TeamMembersSkeleton() {
 }
 
 function TeamMembers() {
+  const t = useTranslations("team");
   const { data: teamData } = useSWR<TeamDataWithMembers>("/api/team", fetcher);
   const [removeState, removeAction, isRemovePending] = useActionState<
     ActionState,
@@ -107,10 +115,10 @@ function TeamMembers() {
     return (
       <Card className="mb-8">
         <CardHeader>
-          <CardTitle>Team Members</CardTitle>
+          <CardTitle>{t("members")}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground">No team members yet.</p>
+          <p className="text-muted-foreground">{t("noMembers")}</p>
         </CardContent>
       </Card>
     );
@@ -119,7 +127,7 @@ function TeamMembers() {
   return (
     <Card className="mb-8">
       <CardHeader>
-        <CardTitle>Team Members</CardTitle>
+        <CardTitle>{t("members")}</CardTitle>
       </CardHeader>
       <CardContent>
         <ul className="space-y-4">
@@ -161,7 +169,7 @@ function TeamMembers() {
                     size="sm"
                     disabled={isRemovePending}
                   >
-                    {isRemovePending ? "Removing..." : "Remove"}
+                    {isRemovePending ? t("removing") : t("remove")}
                   </Button>
                 </form>
               ) : null}
@@ -177,16 +185,18 @@ function TeamMembers() {
 }
 
 function InviteTeamMemberSkeleton() {
+  const t = useTranslations("team");
   return (
     <Card className="h-[260px]">
       <CardHeader>
-        <CardTitle>Invite Team Member</CardTitle>
+        <CardTitle>{t("invite")}</CardTitle>
       </CardHeader>
     </Card>
   );
 }
 
 function InviteTeamMember() {
+  const t = useTranslations("team");
   const { data: user } = useSWR<User>("/api/user", fetcher);
   const isOwner = user?.role === "owner";
   const [inviteState, inviteAction, isInvitePending] = useActionState<
@@ -197,25 +207,25 @@ function InviteTeamMember() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Invite Team Member</CardTitle>
+        <CardTitle>{t("invite")}</CardTitle>
       </CardHeader>
       <CardContent>
         <form action={inviteAction} className="space-y-4">
           <div>
             <Label htmlFor="email" className="mb-2">
-              Email
+              {t("email")}
             </Label>
             <Input
               id="email"
               name="email"
               type="email"
-              placeholder="Enter email"
+              placeholder={t("enterEmail")}
               required
               disabled={!isOwner}
             />
           </div>
           <div>
-            <Label>Role</Label>
+            <Label>{t("role")}</Label>
             <RadioGroup
               defaultValue="member"
               name="role"
@@ -224,11 +234,11 @@ function InviteTeamMember() {
             >
               <div className="flex items-center space-x-2 mt-2">
                 <RadioGroupItem value="member" id="member" />
-                <Label htmlFor="member">Member</Label>
+                <Label htmlFor="member">{t("member")}</Label>
               </div>
               <div className="flex items-center space-x-2 mt-2">
                 <RadioGroupItem value="owner" id="owner" />
-                <Label htmlFor="owner">Owner</Label>
+                <Label htmlFor="owner">{t("owner")}</Label>
               </div>
             </RadioGroup>
           </div>
@@ -242,12 +252,12 @@ function InviteTeamMember() {
             {isInvitePending ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Inviting...
+                {t("inviting")}
               </>
             ) : (
               <>
                 <PlusCircle className="mr-2 h-4 w-4" />
-                Invite Member
+                {t("inviteMember")}
               </>
             )}
           </Button>
@@ -256,7 +266,7 @@ function InviteTeamMember() {
       {!isOwner && (
         <CardFooter>
           <p className="text-sm text-muted-foreground">
-            You must be a team owner to invite new members.
+            {t("ownerOnlyInvite")}
           </p>
         </CardFooter>
       )}
@@ -265,9 +275,10 @@ function InviteTeamMember() {
 }
 
 export default function SettingsPage() {
+  const t = useTranslations("team");
   return (
     <section className="flex-1 p-4 lg:p-8">
-      <h1 className="text-lg lg:text-2xl font-medium mb-6">Team Settings</h1>
+      <h1 className="text-lg lg:text-2xl font-medium mb-6">{t("title")}</h1>
       <Suspense fallback={<SubscriptionSkeleton />}>
         <ManageSubscription />
       </Suspense>

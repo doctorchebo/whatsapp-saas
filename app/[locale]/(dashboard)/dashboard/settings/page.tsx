@@ -13,9 +13,11 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Plus, Trash2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 export default function SettingsPage() {
+  const t = useTranslations("settings");
   const [rules, setRules] = useState([
     { id: 1, trigger: "hello", response: "Hi there! How can I help?" },
     { id: 2, trigger: "pricing", response: "Our pricing starts at $99/month" },
@@ -36,75 +38,78 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6 p-4 lg:p-8">
       <div>
-        <h1 className="text-lg lg:text-2xl font-medium">Settings</h1>
-        <p className="text-sm text-muted-foreground">
-          Configure your WhatsApp automation and integration settings
-        </p>
+        <h1 className="text-lg lg:text-2xl font-medium">{t("title")}</h1>
+        <p className="text-sm text-muted-foreground">{t("description")}</p>
       </div>
 
       {/* Profile Settings */}
       <Card>
         <CardHeader>
-          <CardTitle>Profile Settings</CardTitle>
-          <CardDescription>Update your account information</CardDescription>
+          <CardTitle>{t("profileSettings")}</CardTitle>
+          <CardDescription>{t("updateInfo")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <Label htmlFor="name">Display Name</Label>
-            <Input id="name" placeholder="Your name" defaultValue="John Doe" />
+            <Label htmlFor="name">{t("displayName")}</Label>
+            <Input
+              id="name"
+              placeholder={t("yourName")}
+              defaultValue="John Doe"
+            />
           </div>
           <div>
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{t("email")}</Label>
             <Input
               id="email"
               type="email"
-              placeholder="your@email.com"
+              placeholder={t("yourEmail")}
               defaultValue="john@example.com"
             />
           </div>
-          <Button>Save Changes</Button>
+          <Button>{t("saveChanges")}</Button>
         </CardContent>
       </Card>
 
       {/* Integration Settings */}
       <Card>
         <CardHeader>
-          <CardTitle>Integration Settings</CardTitle>
-          <CardDescription>
-            Configure WhatsApp and other integrations
-          </CardDescription>
+          <CardTitle>{t("integrationSettings")}</CardTitle>
+          <CardDescription>{t("configureIntegration")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="border rounded-lg p-4 space-y-4">
             <div>
               <h3 className="font-semibold text-sm mb-2">
-                WhatsApp Integration
+                {t("whatsappIntegration")}
               </h3>
               <div className="space-y-3">
                 <div>
-                  <Label htmlFor="twilio-account">Twilio Account SID</Label>
+                  <Label htmlFor="twilio-account">{t("twilioAccount")}</Label>
                   <Input
                     id="twilio-account"
-                    placeholder="Your Twilio Account SID"
+                    placeholder={t("twilioAccountPlaceholder")}
                     type="password"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="twilio-token">Twilio Auth Token</Label>
+                  <Label htmlFor="twilio-token">{t("twilioToken")}</Label>
                   <Input
                     id="twilio-token"
-                    placeholder="Your Twilio Auth Token"
+                    placeholder={t("twilioTokenPlaceholder")}
                     type="password"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="whatsapp-number">WhatsApp Number</Label>
-                  <Input id="whatsapp-number" placeholder="+1234567890" />
+                  <Label htmlFor="whatsapp-number">{t("whatsappNumber")}</Label>
+                  <Input
+                    id="whatsapp-number"
+                    placeholder={t("whatsappNumberPlaceholder")}
+                  />
                 </div>
               </div>
             </div>
             <Separator />
-            <Button variant="outline">Test Connection</Button>
+            <Button variant="outline">{t("testConnection")}</Button>
           </div>
         </CardContent>
       </Card>
@@ -112,20 +117,18 @@ export default function SettingsPage() {
       {/* Automation Rules Editor */}
       <Card>
         <CardHeader>
-          <CardTitle>Automation Rules</CardTitle>
-          <CardDescription>
-            Create rules for automatic message responses
-          </CardDescription>
+          <CardTitle>{t("automationRules")}</CardTitle>
+          <CardDescription>{t("createRules")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Add New Rule Form */}
           <div className="border rounded-lg p-4 space-y-4 bg-muted/20">
-            <h3 className="font-semibold text-sm">Add New Rule</h3>
+            <h3 className="font-semibold text-sm">{t("addNewRule")}</h3>
             <div>
-              <Label htmlFor="trigger">Trigger Keyword</Label>
+              <Label htmlFor="trigger">{t("triggerKeyword")}</Label>
               <Input
                 id="trigger"
-                placeholder="e.g., 'hello', 'pricing', 'demo'"
+                placeholder={t("triggerPlaceholder")}
                 value={newRule.trigger}
                 onChange={(e) =>
                   setNewRule({ ...newRule, trigger: e.target.value })
@@ -133,10 +136,10 @@ export default function SettingsPage() {
               />
             </div>
             <div>
-              <Label htmlFor="response">Automatic Response</Label>
+              <Label htmlFor="response">{t("automaticResponse")}</Label>
               <Input
                 id="response"
-                placeholder="e.g., 'Hi there! How can I help?'"
+                placeholder={t("responsePlaceholder")}
                 value={newRule.response}
                 onChange={(e) =>
                   setNewRule({ ...newRule, response: e.target.value })
@@ -145,13 +148,13 @@ export default function SettingsPage() {
             </div>
             <Button onClick={handleAddRule} className="gap-2">
               <Plus className="h-4 w-4" />
-              Add Rule
+              {t("addRule")}
             </Button>
           </div>
 
           {/* Rules List */}
           <div className="space-y-2">
-            <h3 className="font-semibold text-sm">Current Rules</h3>
+            <h3 className="font-semibold text-sm">{t("currentRules")}</h3>
             {rules.length > 0 ? (
               <div className="space-y-2">
                 {rules.map((rule) => (
@@ -161,13 +164,13 @@ export default function SettingsPage() {
                   >
                     <div className="flex-1">
                       <p className="font-medium text-sm">
-                        Trigger:{" "}
+                        {t("trigger")}{" "}
                         <code className="bg-muted px-2 py-1 rounded text-xs">
                           {rule.trigger}
                         </code>
                       </p>
                       <p className="text-sm text-muted-foreground mt-1">
-                        Response: {rule.response}
+                        {t("response")}: {rule.response}
                       </p>
                     </div>
                     <Button
@@ -181,9 +184,7 @@ export default function SettingsPage() {
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-muted-foreground">
-                No rules created yet
-              </p>
+              <p className="text-sm text-muted-foreground">{t("noRules")}</p>
             )}
           </div>
         </CardContent>
@@ -192,15 +193,15 @@ export default function SettingsPage() {
       {/* Feature Toggles */}
       <Card>
         <CardHeader>
-          <CardTitle>Features</CardTitle>
-          <CardDescription>Enable or disable features</CardDescription>
+          <CardTitle>{t("features")}</CardTitle>
+          <CardDescription>{t("enableDisable")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium text-sm">LLM Emotion Analysis</p>
+              <p className="font-medium text-sm">{t("emotionAnalysis")}</p>
               <p className="text-xs text-muted-foreground">
-                Analyze sentiment in incoming messages
+                {t("emotionAnalysisDesc")}
               </p>
             </div>
             <Switch defaultChecked />
@@ -208,9 +209,9 @@ export default function SettingsPage() {
           <Separator />
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium text-sm">Auto Response</p>
+              <p className="font-medium text-sm">{t("autoResponse")}</p>
               <p className="text-xs text-muted-foreground">
-                Enable automatic responses for matched rules
+                {t("autoResponseDesc")}
               </p>
             </div>
             <Switch />
@@ -218,9 +219,9 @@ export default function SettingsPage() {
           <Separator />
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium text-sm">Message Notifications</p>
+              <p className="font-medium text-sm">{t("messageNotifications")}</p>
               <p className="text-xs text-muted-foreground">
-                Receive notifications for new messages
+                {t("notificationsDesc")}
               </p>
             </div>
             <Switch defaultChecked />

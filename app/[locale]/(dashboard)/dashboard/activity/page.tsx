@@ -13,6 +13,7 @@ import {
   UserPlus,
   type LucideIcon,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const iconMap: Record<ActivityType, LucideIcon> = {
   [ActivityType.SIGN_UP]: UserPlus,
@@ -41,42 +42,48 @@ function getRelativeTime(date: Date) {
   return date.toLocaleDateString();
 }
 
-function formatAction(action: ActivityType): string {
+function formatAction(
+  action: ActivityType,
+  t: ReturnType<typeof useTranslations>
+): string {
   switch (action) {
     case ActivityType.SIGN_UP:
-      return "You signed up";
+      return t("activity.signUp");
     case ActivityType.SIGN_IN:
-      return "You signed in";
+      return t("activity.signIn");
     case ActivityType.SIGN_OUT:
-      return "You signed out";
+      return t("activity.signOut");
     case ActivityType.UPDATE_PASSWORD:
-      return "You changed your password";
+      return t("activity.updatePassword");
     case ActivityType.DELETE_ACCOUNT:
-      return "You deleted your account";
+      return t("activity.deleteAccount");
     case ActivityType.UPDATE_ACCOUNT:
-      return "You updated your account";
+      return t("activity.updateAccount");
     case ActivityType.CREATE_TEAM:
-      return "You created a new team";
+      return t("activity.createTeam");
     case ActivityType.REMOVE_TEAM_MEMBER:
-      return "You removed a team member";
+      return t("activity.removeTeamMember");
     case ActivityType.INVITE_TEAM_MEMBER:
-      return "You invited a team member";
+      return t("activity.inviteTeamMember");
     case ActivityType.ACCEPT_INVITATION:
-      return "You accepted an invitation";
+      return t("activity.acceptInvitation");
     default:
-      return "Unknown action occurred";
+      return t("activity.unknownAction");
   }
 }
 
 export default async function ActivityPage() {
+  const t = useTranslations();
   const logs = await getActivityLogs();
 
   return (
     <section className="flex-1 p-4 lg:p-8">
-      <h1 className="text-lg lg:text-2xl font-medium mb-6">Activity Log</h1>
+      <h1 className="text-lg lg:text-2xl font-medium mb-6">
+        {t("activity.title")}
+      </h1>
       <Card>
         <CardHeader>
-          <CardTitle>Recent Activity</CardTitle>
+          <CardTitle>{t("activity.recentActivity")}</CardTitle>
         </CardHeader>
         <CardContent>
           {logs.length > 0 ? (
@@ -84,7 +91,8 @@ export default async function ActivityPage() {
               {logs.map((log) => {
                 const Icon = iconMap[log.action as ActivityType] || Settings;
                 const formattedAction = formatAction(
-                  log.action as ActivityType
+                  log.action as ActivityType,
+                  t
                 );
 
                 return (
@@ -109,11 +117,10 @@ export default async function ActivityPage() {
             <div className="flex flex-col items-center justify-center text-center py-12">
               <AlertCircle className="h-12 w-12 text-orange-500 mb-4" />
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                No activity yet
+                {t("activity.noActivity")}
               </h3>
               <p className="text-sm text-gray-500 max-w-sm">
-                When you perform actions like signing in or updating your
-                account, they'll appear here.
+                {t("activity.noActivityDesc")}
               </p>
             </div>
           )}

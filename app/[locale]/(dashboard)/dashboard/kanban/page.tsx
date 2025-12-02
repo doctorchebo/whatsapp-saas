@@ -3,6 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MessageSquare } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 interface KanbanCard {
@@ -173,6 +174,7 @@ function KanbanColumnComponent({
 }
 
 export default function KanbanPage() {
+  const t = useTranslations("kanban");
   const [columns, setColumns] = useState<KanbanColumn[]>(initialColumns);
   const [draggedCard, setDraggedCard] = useState<{
     cardId: string;
@@ -248,10 +250,8 @@ export default function KanbanPage() {
   return (
     <div className="flex flex-col gap-4 p-4 lg:p-8 h-full overflow-auto">
       <div>
-        <h1 className="text-lg lg:text-2xl font-medium">Kanban Board</h1>
-        <p className="text-sm text-muted-foreground">
-          Drag cards between columns to update lead status
-        </p>
+        <h1 className="text-lg lg:text-2xl font-medium">{t("title")}</h1>
+        <p className="text-sm text-muted-foreground">{t("description")}</p>
       </div>
 
       {/* Kanban Board */}
@@ -278,21 +278,15 @@ export default function KanbanPage() {
       {/* Info Card */}
       <Card className="mt-4">
         <CardHeader>
-          <CardTitle className="text-base">Kanban Board Features</CardTitle>
+          <CardTitle className="text-base">{t("features")}</CardTitle>
         </CardHeader>
         <CardContent>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li>✓ Drag and drop cards between columns to update lead status</li>
-            <li>
-              ✓ Columns highlight when dragging over them for easy drop
-              targeting
-            </li>
-            <li>✓ Emotion analysis badges show sentiment from LLM</li>
-            <li>
-              ✓ Color-coded emotions: Green (positive), Blue (engaged), Gray
-              (neutral)
-            </li>
-            <li>✓ Track your sales pipeline at a glance</li>
+            <li>✓ {t("dragCards")}</li>
+            <li>✓ {t("highlight")}</li>
+            <li>✓ {t("emotionBadges")}</li>
+            <li>✓ {t("colorCoded")}</li>
+            <li>✓ {t("trackPipeline")}</li>
           </ul>
         </CardContent>
       </Card>
