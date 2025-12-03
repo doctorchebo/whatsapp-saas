@@ -12,7 +12,6 @@ import { ChevronDown, MessageSquare, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
-type ViewType = "List" | "Kanban";
 
 // Mock data for chats
 const mockChats = [
@@ -71,7 +70,6 @@ const mockChatDetail = {
 
 export default function ChatsPage() {
   const t = useTranslations("chats");
-  const [view, setView] = useState<ViewType>("List");
   const [automationEnabled, setAutomationEnabled] = useState(false);
   const [selectedChatId, setSelectedChatId] = useState<number | null>(1);
   const selectedChat = mockChats.find((c) => c.id === selectedChatId) || null;
@@ -85,22 +83,6 @@ export default function ChatsPage() {
           <p className="text-sm text-muted-foreground">{t("description")}</p>
         </div>
         <div className="flex items-center gap-3">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="gap-2">
-                {view === "List" ? t("listView") : t("kanbanView")}
-                <ChevronDown className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => setView("List")}>
-                {t("listView")}
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setView("Kanban")}>
-                {t("kanbanView")}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
           <Button
             variant={automationEnabled ? "default" : "outline"}
             onClick={() => setAutomationEnabled(!automationEnabled)}

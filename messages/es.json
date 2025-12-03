@@ -19,8 +19,6 @@
   "chats": {
     "title": "Chats",
     "description": "Gestiona tus conversaciones y clientes potenciales",
-    "listView": "Vista de Lista",
-    "kanbanView": "Vista Kanban",
     "automateReplies": "Automatizar Respuestas",
     "automationOn": "Automatización Activada",
     "searchChats": "Buscar chats...",

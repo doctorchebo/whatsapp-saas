@@ -19,8 +19,6 @@
   "chats": {
     "title": "Chats",
     "description": "Manage your conversations and leads",
-    "listView": "List View",
-    "kanbanView": "Kanban View",
     "automateReplies": "Automate Replies",
     "automationOn": "Automation On",
     "searchChats": "Search chats...",
